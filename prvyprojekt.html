@@ -4,41 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Simple Site</title>
+    <style>
+        body { margin:0; font-family: Arial, sans-serif; background:#f9f9f9; color:#2c3e50; }
+        a { color:#3498db; text-decoration:none; }
+        header, footer { background:#2c3e50; color:#fff; }
+        main { max-width:900px; margin:2rem auto; padding:0 1rem; }
+        .page-section { display:none; }
+        .page-section.active { display:block; }
+        nav a { color:#ecf0f1; margin:0 0.5rem; }
+        .card { background:#fff; border:1px solid #ddd; padding:1rem; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+        form input, form button { width:100%; padding:0.75rem; margin:0.5rem 0; border:1px solid #ccc; border-radius:4px; }
+        form button { background:#2c3e50; color:#fff; border:none; cursor:pointer; }
+    </style>
 </head>
 <body>
-        <header style="background:#2c3e50;color:#fff;padding:1rem;">
-            <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
-                <h1 style="font-size:1.2rem;margin:0;">My Simple Site</h1>
-                <nav>
-                    <a href="#" style="color:#ecf0f1;margin:0 0.5rem;text-decoration:none;">Home</a>
-                    <a href="#about" style="color:#ecf0f1;margin:0 0.5rem;text-decoration:none;">About</a>
-                    <a href="#contact" style="color:#ecf0f1;margin:0 0.5rem;text-decoration:none;">Contact</a>
-                </nav>
-            </div>
-        </header>
+    <header style="padding:1rem 0;">
+        <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
+            <h1 style="font-size:1.2rem;margin:0;">My Simple Site</h1>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#second">Second</a>
+                <a href="#login">Login</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-        <main style="max-width:900px;margin:2rem auto;padding:0 1rem;">
-            <section>
-                <h2>Welcome</h2>
-                <p>This is a minimal, static index page. Use it as a starting point for your project.</p>
-                <p><a href="#about">Learn more about this site</a></p>
-            </section>
+    <main>
+        <section id="home" class="page-section active card">
+            <h2>Welcome</h2>
+            <p>This is a minimal static landing page. Use the links above to visit the second page or login form.</p>
+            <p><a href="#about">Learn more about this site</a></p>
+        </section>
 
-            <section id="about" style="margin-top:2rem;">
-                <h3>About</h3>
-                <p>Built with plain HTML. No frameworks, no build steps—just a clean structure.</p>
-            </section>
+        <section id="about" class="page-section card">
+            <h3>About</h3>
+            <p>Built with plain HTML and a small script. No frameworks, no build steps—just a clean structure.</p>
+        </section>
 
-            <section id="contact" style="margin-top:2rem;">
-                <h3>Contact</h3>
-                <p>Email: <a href="mailto:hello@example.com">hello@example.com</a></p>
-            </section>
-        </main>
+        <section id="second" class="page-section card">
+            <h3>Second Page</h3>
+            <p>This second page shows an alternate content area. Keep the design simple and easy to read.</p>
+            <p><a href="#home">Back to home</a></p>
+        </section>
 
-        <footer style="background:#ecf0f1;padding:1rem 0;margin-top:2rem;">
-            <div style="max-width:900px;margin:0 auto;text-align:center;color:#7f8c8d;">
-                &copy; " + new Date().getFullYear() + " My Simple Site
-            </div>
-        </footer>
+        <section id="login" class="page-section card">
+            <h3>Login</h3>
+            <form>
+                <label>
+                    Email
+                    <input type="email" placeholder="you@example.com" required>
+                </label>
+                <label>
+                    Password
+                    <input type="password" placeholder="Password" required>
+                </label>
+                <button type="submit">Sign In</button>
+            </form>
+        </section>
+
+        <section id="contact" class="page-section card">
+            <h3>Contact</h3>
+            <p>Email: <a href="mailto:hello@example.com">hello@example.com</a></p>
+        </section>
+    </main>
+
+    <footer style="padding:1rem 0;margin-top:2rem;">
+        <div style="max-width:900px;margin:0 auto;text-align:center;color:#ecf0f1;">
+            &copy; <span id="year"></span> My Simple Site
+        </div>
+    </footer>
+
+    <script>
+        function showSection() {
+            var hash = location.hash || '#home';
+            var target = document.querySelector(hash);
+            if (!target) {
+                hash = '#home';
+            }
+            document.querySelectorAll('.page-section').forEach(function(section) {
+                section.classList.toggle('active', '#' + section.id === hash);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('year').textContent = new Date().getFullYear();
+            showSection();
+        });
+        window.addEventListener('hashchange', showSection);
+    </script>
 </body>
 </html>
